@@ -1,5 +1,7 @@
 package pl.edu.agh.java.exercises.arrays;
 
+import java.util.HashMap;
+
 /**
  * Consider the leftmost and righmost appearances of some value in an array.
  * We'll say that the "span" is the number of elements between the two
@@ -15,6 +17,24 @@ package pl.edu.agh.java.exercises.arrays;
  */
 public class ArraySpan {
 	public int maxSpan(int[] array) {
-		throw new UnsupportedOperationException();
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int maxSpan = 0;
+		int tempSpan = 0;
+		if (array == null || array.length == 0) {
+			return 0;
+		} else if (array.length == 1) {
+			return 1;
+		}
+		for (int i = 0; i < array.length; i++) {
+			if (map.containsKey(array[i])) {
+				tempSpan = i - map.get(array[i]) + 1;
+				if (tempSpan > maxSpan) {
+					maxSpan = tempSpan;
+				}
+			} else {
+				map.put(array[i], i);
+			}
+		}
+		return maxSpan;
 	}
 }
